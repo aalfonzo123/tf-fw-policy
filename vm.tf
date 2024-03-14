@@ -53,6 +53,6 @@ resource "google_compute_instance" "my-instance" {
 
 resource "google_tags_location_tag_binding" "binding" {
   parent    = "//compute.googleapis.com/projects/${data.google_project.current-project.number}/zones/${google_compute_instance.my-instance.zone}/instances/${google_compute_instance.my-instance.instance_id}"
-  tag_value = google_tags_tag_value.environment-dev.id
+  tag_value = module.vpc-1-fw-policy.database-tag.id
   location  = google_compute_instance.my-instance.zone
 }

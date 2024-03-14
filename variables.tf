@@ -4,6 +4,9 @@ variable "services" {
 variable "network" {
 }
 
+variable "network-2" {
+}
+
 variable "subnetwork" {
 }
 
