@@ -1,6 +1,12 @@
 services=["iam.googleapis.com", "compute.googleapis.com"]
-network="vpc-1"
-network-2="vpc-2"
+network={
+    project-id="meijer-gcp-core-842352947916e",
+    vpc-name="vpc-1"
+}
+network-2={
+    project-id="alf-monitoring-project",
+    vpc-name="vpc-monitoring-1"
+}
 subnetwork="projects/meijer-gcp-core-842352947916e/regions/us-east4/subnetworks/subnet-1"
 roles=[]
 zone="us-east4-a"

@@ -1,13 +1,10 @@
-data "google_project" "current-project" {
-}
-
 resource "google_tags_tag_key" "content-tag" {
-  parent      = data.google_project.current-project.id
-  short_name  = "${var.network}-content-tag"
+  parent      = data.google_project.project.id
+  short_name  = "${var.network.vpc-name}-content-tag"
   description = "Tag example"
   purpose     = "GCE_FIREWALL"
   purpose_data = {
-    network = "${data.google_project.current-project.project_id}/${var.network}"
+    network = "${var.network.project-id}/${var.network.vpc-name}"
   }
 }
 

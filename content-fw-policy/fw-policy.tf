@@ -1,19 +1,27 @@
-resource "google_compute_network_firewall_policy" "content-fw-policy" {
-  name        = "${var.network}-content-fw-policy"
-  description = "Content firewall policy"
+data "google_project" "project" {
+  project_id = var.network.project-id
 }
 
-data "google_compute_network" "vpc" {
-  name = var.network
+data "google_compute_network" "network" {
+  name    = var.network.vpc-name
+  project = var.network.project-id
+}
+
+resource "google_compute_network_firewall_policy" "content-fw-policy" {
+  project     = data.google_project.project.id
+  name        = "${var.network.vpc-name}-content-fw-policy"
+  description = "Content firewall policy"
 }
 
 resource "google_compute_network_firewall_policy_association" "fw-policy-vpc-association" {
   name              = "fw-policy-vpc-association"
-  attachment_target = data.google_compute_network.vpc.id
+  attachment_target = data.google_compute_network.network.id
   firewall_policy   = google_compute_network_firewall_policy.content-fw-policy.name
+  project           = data.google_project.project.id
 }
 
 resource "google_compute_network_firewall_policy_rule" "backend-database-fw-policy-rule" {
+  project         = data.google_project.project.id
   action          = "allow"
   description     = "Allow backends to access databases on port 3306"
   direction       = "INGRESS"
